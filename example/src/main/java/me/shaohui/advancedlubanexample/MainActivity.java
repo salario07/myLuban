@@ -3,7 +3,7 @@ package me.shaohui.advancedlubanexample;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +13,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import me.shaohui.advancedluban.Luban;
@@ -92,61 +91,8 @@ public class MainActivity extends AppCompatActivity {
                     compressMultiListener(gear);
                 }
                 break;
-            case R.id.method_rxjava:
-                if (mFileList.size() == 1) {
-                    compressSingleRxJava(gear);
-                } else {
-                    compressMultiRxJava(gear);
-                }
-                break;
             default:
         }
-    }
-
-
-    private void compressSingleRxJava(int gear) {
-        if (mFileList.isEmpty()) {
-            return;
-        }
-
-        Luban.compress(mFileList.get(0), getFilesDir())
-                .putGear(gear)
-                .asObservable()
-                .subscribe(new Consumer<File>() {
-                    @Override
-                    public void accept(File file) throws Exception {
-                        Log.i("TAG", file.getAbsolutePath());
-                        mImageViews.get(0).setImageURI(Uri.fromFile(file));
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                });
-    }
-
-    private void compressMultiRxJava(int gear) {
-        if (mFileList.isEmpty()) {
-            return;
-        }
-        Luban.compress(this, mFileList)
-                .putGear(gear)
-                .asListObservable()
-                .subscribe(new Consumer<List<File>>() {
-                    @Override
-                    public void accept(List<File> files) throws Exception {
-                        int size = files.size();
-                        while (size-- > 0) {
-                            mImageViews.get(size).setImageURI(Uri.fromFile(files.get(size)));
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                });
     }
 
     private void compressSingleListener(int gear) {

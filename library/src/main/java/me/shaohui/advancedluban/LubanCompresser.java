@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -227,7 +227,7 @@ class LubanCompresser {
     }
 
     private String getCacheFilePath() {
-        StringBuilder name = new StringBuilder("Luban_" + System.currentTimeMillis());
+        StringBuilder name = new StringBuilder("image_" + System.currentTimeMillis());
         if (mLuban.compressFormat == Bitmap.CompressFormat.WEBP) {
             name.append(".webp");
         } else {

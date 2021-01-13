@@ -15,7 +15,7 @@ package me.shaohui.advancedluban;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.util.Log;
 
 import java.io.File;
